@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App Router: Works with Server Components 1`] = `
+exports[`should match snapshot 1`] = `
 <div>
   <h1>
     resume analyser!
@@ -13,5 +13,13 @@ exports[`App Router: Works with Server Components 1`] = `
   >
     +
   </button>
+  <h2>
+    Data from backend
+  </h2>
+  <p
+    data-testid="backend-example"
+  >
+    {"text":"Hello from the backend!","otherText":"Hello again!"}
+  </p>
 </div>
 `;

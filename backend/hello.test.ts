@@ -6,9 +6,15 @@ Deno.test({
 	name: "hello test",
 	fn() {
 		const ctx = testing.createMockContext({
-			path: "/hello",
+			path: "/api/hello",
 		});
 		hello(ctx);
-		assertEquals(ctx.response.body, "Hello world");
+		assertEquals(
+			ctx.response.body,
+			JSON.stringify({
+				text: "Hello from the backend!",
+				otherText: "Hello again!",
+			}),
+		);
 	},
 });

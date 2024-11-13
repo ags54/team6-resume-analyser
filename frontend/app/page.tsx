@@ -1,3 +1,4 @@
+import { BackendExample } from "./backend_example";
 import Counter from "./counter";
 
 export const metadata = {
@@ -9,6 +10,7 @@ export default function Page() {
 		<>
 			<h1>resume analyser!</h1>
 			<Counter />
+			<BackendExample />
 		</>
 	);
 }
