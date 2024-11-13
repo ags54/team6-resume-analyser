@@ -1,6 +1,8 @@
 # Style Guide
 
-Please setup deno and prettier as described in `README.md`.
+Please setup deno and prettier as described in `SETUP.md`.
+
+All code should be formatted automatically by them.
 
 Components, types, and interfaces should be named in `PascalCase`.
 
