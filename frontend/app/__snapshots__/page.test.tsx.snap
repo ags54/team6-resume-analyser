@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Router: Works with Server Components 1`] = `
+<div>
+  <h1>
+    resume analyser!
+  </h1>
+  <h2>
+    0
+  </h2>
+  <button
+    type="button"
+  >
+    +
+  </button>
+</div>
+`;
