@@ -2,6 +2,10 @@
 
 This is team 6's resume analyser. It's goal is to provide useful feedback on resumes using a large language model.
 
+## Setup
+
+See [SETUP.md](docs/SETUP.md)
+
 ## Frontend
 
 The frontend is in `/frontend`. It is a next.js project that uses npm and node.

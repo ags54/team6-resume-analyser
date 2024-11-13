@@ -1,6 +1,6 @@
 # Style Guide
 
-Please setup deno and prettier as described in `SETUP.md`.
+Please setup deno and prettier as described in [SETUP.md](SETUP.md).
 
 All code should be formatted automatically by them.
 
