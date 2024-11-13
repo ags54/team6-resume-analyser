@@ -6,7 +6,8 @@
 		"start": "next start",
 		"test": "jest --watch",
 		"test:ci": "jest --ci",
-		"format": "prettier -uw \"**/*\""
+		"format": "prettier -uw \"**\"",
+		"check-formatting": "prettier -uc \"**\""
 	},
 	"dependencies": {
 		"next": "latest",
