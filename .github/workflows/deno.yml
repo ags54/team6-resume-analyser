@@ -31,14 +31,11 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Change to backend directory
-        run: cd backend
-
       - name: Verify formatting
-        run: deno fmt --check
+        run: cd backend; deno fmt --check
 
       - name: Run linter
-        run: deno lint
+        run: cd backend; deno lint
 
       - name: Run tests
-        run: deno test -A
+        run: cd backend; deno test -A
