@@ -29,4 +29,4 @@ jobs:
     - run: cd frontend; npm install
     - run: cd frontend; npm run check-formatting
     - run: cd frontend; npm run build
-    - run: cd frontend; npm test:ci
+    - run: cd frontend; npm run test:ci
