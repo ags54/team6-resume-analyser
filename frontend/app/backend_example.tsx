@@ -2,7 +2,7 @@
 
 import { Button, Card, CardContent, CardHeader, Input } from "@mui/material";
 import { useState } from "react";
-import { backendPost, useBackendGet } from "util/fetching";
+import { backendPost, useBackendGet } from "app/util/fetching";
 
 export function BackendExample() {
 	const { data, error } = useBackendGet("api/hello");

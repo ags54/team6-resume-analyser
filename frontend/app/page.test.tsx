@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import Page from "./page";
-import { getRequests, postRequests } from "util/fetching";
+import { getRequests, postRequests } from "app/util/fetching";
 import { SWRResponse } from "swr";
 
 // https://jestjs.io/docs/mock-functions
