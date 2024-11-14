@@ -12,8 +12,7 @@ Deno.test({
 		assertEquals(
 			ctx.response.body,
 			JSON.stringify({
-				text: "Hello from the backend!",
-				otherText: "Hello again!",
+				message: "Hello from the backend!",
 			}),
 		);
 	},

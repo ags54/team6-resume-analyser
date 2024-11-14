@@ -12,7 +12,7 @@ export default function Counter() {
 				component="h2"
 				title={"count: " + count}
 				data-testid="counter-header"
-			></CardHeader>
+			/>
 			<CardContent className={styles.buttons}>
 				<Button
 					type="button"

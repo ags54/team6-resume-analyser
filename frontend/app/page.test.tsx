@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import Page from "./page";
+import { processEvents } from "util/testing";
 
 // https://jestjs.io/docs/mock-functions
 jest.mock("../util/fetching", () => {
@@ -7,7 +8,7 @@ jest.mock("../util/fetching", () => {
 	return {
 		__esModule: true,
 		...originalModule,
-		useBackend: (endpoint: string) => {
+		useBackendGet: (endpoint: string) => {
 			switch (endpoint) {
 				case "api/hello":
 					return {
@@ -17,6 +18,14 @@ jest.mock("../util/fetching", () => {
 						},
 						error: undefined,
 					};
+			}
+		},
+		backendPost: (endpoint: string, data: any) => {
+			switch (endpoint) {
+				case "api/greeting":
+					return Promise.resolve({
+						message: "this is a message",
+					});
 			}
 		},
 	};
@@ -34,9 +43,21 @@ it("should match snapshot", () => {
 	expect(container).toMatchSnapshot();
 });
 
-it("displays the correct information from the backend", () => {
+it("displays the correct information from the backend get", () => {
 	render(<Page />);
-	expect(screen.getByTestId("backend-example").textContent).toEqual(
+	expect(screen.getByTestId("backend-example-get").textContent).toEqual(
 		'{"text":"Hello from the backend!","otherText":"Hello again!"}',
+	);
+});
+
+it("displays the correct information from the backend post", async () => {
+	render(<Page />);
+	await act(async () => {
+		fireEvent.click(
+			screen.getByRole("button", { name: "send post request" }),
+		);
+	});
+	expect(screen.getByTestId("backend-example-post").textContent).toEqual(
+		"this is a message",
 	);
 });

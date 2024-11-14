@@ -1,10 +1,10 @@
-import useSWR from "swr";
+import useSWR, { SWRResponse } from "swr";
 
 export const jsonFetcher: (
 	...args: Parameters<typeof fetch>
 ) => Promise<any> = (...args) => fetch(...args).then((res) => res.json());
 
-export function useBackend(endpoint: string) {
+function getEndpointPath(endpoint: string) {
 	// ensure trailing slash in server
 	const server = process.env.NEXT_PUBLIC_BACKEND?.endsWith("/")
 		? process.env.NEXT_PUBLIC_BACKEND
@@ -17,5 +17,40 @@ export function useBackend(endpoint: string) {
 	if (endpoint.startsWith("/")) {
 		endpoint = endpoint.slice(1, endpoint.length);
 	}
-	return useSWR(server + endpoint, jsonFetcher);
+	return server + endpoint;
+}
+
+type getRequests = {
+	"api/hello": {
+		response: {
+			message: string;
+		};
+	};
+};
+
+export function useBackendGet<T extends keyof getRequests>(
+	endpoint: T,
+): SWRResponse<getRequests[T]["response"], Error> {
+	return useSWR(getEndpointPath(endpoint), jsonFetcher);
+}
+
+type postRequests = {
+	"api/greeting": {
+		request: {
+			name: string;
+		};
+		response: {
+			message: string;
+		};
+	};
+};
+
+export async function backendPost<T extends keyof postRequests>(
+	endpoint: T,
+	data: postRequests[T]["request"],
+): Promise<postRequests[T]["response"]> {
+	return fetch(getEndpointPath(endpoint), {
+		method: "POST",
+		body: JSON.stringify(data),
+	}).then((response) => response.json());
 }

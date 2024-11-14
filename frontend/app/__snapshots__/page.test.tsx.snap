@@ -58,7 +58,7 @@ exports[`should match snapshot 1`] = `
           <span
             class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title css-16xl4zq-MuiTypography-root"
           >
-            Data from backend
+            GET
           </span>
         </div>
       </h2>
@@ -66,10 +66,55 @@ exports[`should match snapshot 1`] = `
         class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
       >
         <p
-          data-testid="backend-example"
+          data-testid="backend-example-get"
         >
           {"text":"Hello from the backend!","otherText":"Hello again!"}
         </p>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+      style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+    >
+      <h2
+        class="MuiCardHeader-root css-149tc0y-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-h5 MuiCardHeader-title css-16xl4zq-MuiTypography-root"
+          >
+            POST
+          </span>
+        </div>
+      </h2>
+      <div
+        class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+      >
+        <p
+          data-testid="backend-example-post"
+        />
+        <form>
+          <div
+            class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary css-1cmet5c-MuiInputBase-root-MuiInput-root"
+          >
+            <input
+              class="MuiInputBase-input MuiInput-input css-1yrc8ca-MuiInputBase-input-MuiInput-input"
+              name="name"
+              placeholder="name"
+              type="text"
+              value=""
+            />
+          </div>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1abvrni-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="submit"
+          >
+            send post request
+          </button>
+        </form>
       </div>
     </div>
   </div>
