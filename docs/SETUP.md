@@ -39,7 +39,7 @@ Please install [the eslint extension](https://marketplace.visualstudio.com/items
 
 #### from the command line
 
-If you are using another editor that doesnt support eslint, or you can't set it up for some reason, you can also format your code using
+If you are using another editor that doesnt support eslint, or you can't set it up for some reason, you can also lint your code using
 
 (in `frontend`)
 ```sh
