@@ -5,10 +5,13 @@ export const jsonFetcher: (
 ) => Promise<object> = (...args) => fetch(...args).then((res) => res.json());
 
 function getEndpointPath(endpoint: string) {
+	// eslint on ci doesnt know about nodejs globals for some reason
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+	let server = (process as NodeJS.Process).env.NEXT_PUBLIC_BACKEND ?? "";
 	// ensure trailing slash in server
-	const server = process.env.NEXT_PUBLIC_BACKEND?.endsWith("/")
-		? process.env.NEXT_PUBLIC_BACKEND
-		: process.env.NEXT_PUBLIC_BACKEND + "/";
+	if (!server.endsWith("/")) {
+		server = server + "/";
+	}
 	// remove trailing slash from endpoint
 	if (endpoint.endsWith("/")) {
 		endpoint = endpoint.slice(0, endpoint.length - 1);
