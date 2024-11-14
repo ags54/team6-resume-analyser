@@ -1,5 +1,6 @@
 // @ts-check
 
+import globals from "globals";
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 
@@ -23,6 +24,10 @@ const config = tseslint.config(
 			parserOptions: {
 				projectService: true,
 				tsconfigRootDir: import.meta.dirname,
+			},
+			globals: {
+				...globals.browser,
+				...globals.node,
 			},
 		},
 		rules: {
