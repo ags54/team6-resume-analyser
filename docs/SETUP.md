@@ -66,6 +66,6 @@ Deno and node proceses imports differently. This causes projects made for one to
 
 When you need to switch between them, you need to run the `Deno: Enable` and `Deno: Disable` commands in vscode to let it know that you're working on the other project.
 
-You can press f1 and type `deno enable` and then press enter to run the command.
+You can press ctrl+shift+p (or f1 on some systems) and type `deno enable` and then press enter to run the command.
 
 Let everyone know if you discover a way of configuring this to happen automatically.
