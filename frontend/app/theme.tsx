@@ -9,6 +9,7 @@ export const theme = createTheme({
 		MuiButtonBase: {
 			styleOverrides: {
 				root: {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					textTransform: "unset !important" as any,
 				},
 			},

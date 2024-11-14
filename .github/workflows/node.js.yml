@@ -25,7 +25,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: cd frontend; npm install
-      - run: cd frontend; npm run check-formatting
-      - run: cd frontend; npm run build
-      - run: cd frontend; npm run test:ci
+      - name: npm install
+        run: cd frontend; npm install
+      - name: check formatting with prettier
+        run: cd frontend; npm run check-formatting
+      - name: lint with eslint
+        run: cd frontend; npm run lint
+      - name: nextjs build
+        run: cd frontend; npm run build
+      - name: run tests
+        run: cd frontend; npm run test:ci

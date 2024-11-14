@@ -29,6 +29,23 @@ If you are using another editor that doesnt support prettier, or you can't set i
 npm run format
 ```
 
+### Linting
+
+We are using eslint for formatting the frontend.
+
+#### in vscode (reccomended)
+
+Please install [the eslint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for vscode.
+
+#### from the command line
+
+If you are using another editor that doesnt support eslint, or you can't set it up for some reason, you can also format your code using
+
+(in `frontend`)
+```sh
+npm run lint
+```
+
 ## Backend
 
 The backend is in `/backend`. It is an [oak server](https://oakserver.org/) that uses [deno](https://deno.com/).

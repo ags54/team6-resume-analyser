@@ -16,7 +16,7 @@ export function BackendExample() {
 						{data
 							? JSON.stringify(data)
 							: error
-								? error + ""
+								? JSON.stringify(error)
 								: "Loading..."}
 					</p>
 				</CardContent>

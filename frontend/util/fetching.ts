@@ -2,7 +2,7 @@ import useSWR, { SWRResponse } from "swr";
 
 export const jsonFetcher: (
 	...args: Parameters<typeof fetch>
-) => Promise<any> = (...args) => fetch(...args).then((res) => res.json());
+) => Promise<object> = (...args) => fetch(...args).then((res) => res.json());
 
 function getEndpointPath(endpoint: string) {
 	// ensure trailing slash in server
@@ -20,7 +20,7 @@ function getEndpointPath(endpoint: string) {
 	return server + endpoint;
 }
 
-type getRequests = {
+export type getRequests = {
 	"api/hello": {
 		response: {
 			message: string;
@@ -31,10 +31,13 @@ type getRequests = {
 export function useBackendGet<T extends keyof getRequests>(
 	endpoint: T,
 ): SWRResponse<getRequests[T]["response"], Error> {
-	return useSWR(getEndpointPath(endpoint), jsonFetcher);
+	return useSWR(getEndpointPath(endpoint), jsonFetcher) as SWRResponse<
+		getRequests[T]["response"],
+		Error
+	>;
 }
 
-type postRequests = {
+export type postRequests = {
 	"api/greeting": {
 		request: {
 			name: string;
@@ -52,5 +55,7 @@ export async function backendPost<T extends keyof postRequests>(
 	return fetch(getEndpointPath(endpoint), {
 		method: "POST",
 		body: JSON.stringify(data),
-	}).then((response) => response.json());
+	}).then((response) => response.json()) as Promise<
+		postRequests[T]["response"]
+	>;
 }
