@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import Page from "./page";
-import { getRequests, postRequests } from "app/util/fetching";
+import { getRequests, postRequests } from "util/fetching";
 import { SWRResponse } from "swr";
 
 // https://jestjs.io/docs/mock-functions
@@ -62,7 +62,7 @@ it("should match snapshot", () => {
 it("displays the correct information from the backend get", () => {
 	render(<Page />);
 	expect(screen.getByTestId("backend-example-get").textContent).toEqual(
-		'{"text":"Hello from the backend!","otherText":"Hello again!"}',
+		'{"message":"Hello from the backend!"}',
 	);
 });
 

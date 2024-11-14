@@ -68,7 +68,7 @@ exports[`should match snapshot 1`] = `
         <p
           data-testid="backend-example-get"
         >
-          {"text":"Hello from the backend!","otherText":"Hello again!"}
+          {"message":"Hello from the backend!"}
         </p>
       </div>
     </div>
