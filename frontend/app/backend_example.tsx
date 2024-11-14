@@ -7,7 +7,7 @@ export function BackendExample() {
 	const { data, error } = useBackend("api/hello");
 	return (
 		<Card>
-			<CardHeader title="Data from backend"></CardHeader>
+			<CardHeader component="h2" title="Data from backend"></CardHeader>
 			<CardContent>
 				<p data-testid="backend-example">
 					{data

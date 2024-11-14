@@ -8,7 +8,11 @@ export default function Counter() {
 	const [count, setCount] = useState(0);
 	return (
 		<Card>
-			<CardHeader title={"count: " + count}></CardHeader>
+			<CardHeader
+				component="h2"
+				title={"count: " + count}
+				data-testid="counter-header"
+			></CardHeader>
 			<CardContent className={styles.buttons}>
 				<Button
 					type="button"
