@@ -1,8 +1,10 @@
 import { Application } from "@oak/oak";
 import { router } from "./routes.ts";
+import { oakCors } from "@tajpouria/cors";
 
 if (import.meta.main) {
 	const app = new Application();
+	app.use(oakCors({ origin: "*" }));
 	app.use(router.routes());
 	app.use(router.allowedMethods());
 
