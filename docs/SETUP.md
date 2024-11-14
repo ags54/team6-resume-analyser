@@ -31,7 +31,7 @@ npm run format
 
 ### Linting
 
-We are using eslint for formatting the frontend.
+We are using eslint for linting the frontend.
 
 #### in vscode (reccomended)
 
