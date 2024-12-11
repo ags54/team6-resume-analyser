@@ -18,7 +18,7 @@ export interface MockData {
 	fitScore: number;
 	matchedSkills: string[];
 	improvementSuggestions: string[];
-} 
+}
 
 const mockData: MockData = {
 	fitScore: 85,
@@ -50,16 +50,26 @@ export default function Dashboard() {
 
 	const handleDownload = () => {
 		if (fileFormat === "PDF") {
-			generatePDF(mockData.fitScore, mockData.matchedSkills, mockData.improvementSuggestions);
+			generatePDF(
+				mockData.fitScore,
+				mockData.matchedSkills,
+				mockData.improvementSuggestions,
+			);
 		} else if (fileFormat === "Word") {
-			generateWord(mockData.fitScore, mockData.matchedSkills, mockData.improvementSuggestions);
+			generateWord(
+				mockData.fitScore,
+				mockData.matchedSkills,
+				mockData.improvementSuggestions,
+			);
 		}
-	  };
+	};
 
-	  return (
+	return (
 		<>
 			<div className={styles.dashboardContainer}>
-				<h1 className={styles.dashboardTitle}>Resume Analysis Dashboard</h1>
+				<h1 className={styles.dashboardTitle}>
+					Resume Analysis Dashboard
+				</h1>
 				<br></br>
 				<FitScoreChart score={mockData.fitScore} />
 				<SkillsMatched skills={mockData.matchedSkills} />
@@ -71,33 +81,35 @@ export default function Dashboard() {
 			{/* as */}
 			{/* Button Container for Download Report */}
 			<div className={styles.buttonContainer}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleDownload}
-		  sx={{
-			height: 65,       // Adjust the height
-			fontSize: "1.3rem" // Adjust the font size
-		  }}
-        >
-          Download Report
-        </Button>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handleDownload}
+					sx={{
+						height: 65, // Adjust the height
+						fontSize: "1.3rem", // Adjust the font size
+					}}
+				>
+					Download Report
+				</Button>
 
-        {/* Select Button for File Format */}
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="file-format-select-label">File Format</InputLabel>
-          <Select
-            labelId="file-format-select-label"
-            id="file-format-select"
-            value={fileFormat}
-            label="File Format"
-            onChange={(event) => setFileFormat(event.target.value)}
-          >
-            <MenuItem value="PDF">PDF</MenuItem>
-            <MenuItem value="Word">Word</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+				{/* Select Button for File Format */}
+				<FormControl sx={{ m: 1, minWidth: 120 }}>
+					<InputLabel id="file-format-select-label">
+						File Format
+					</InputLabel>
+					<Select
+						labelId="file-format-select-label"
+						id="file-format-select"
+						value={fileFormat}
+						label="File Format"
+						onChange={(event) => setFileFormat(event.target.value)}
+					>
+						<MenuItem value="PDF">PDF</MenuItem>
+						<MenuItem value="Word">Word</MenuItem>
+					</Select>
+				</FormControl>
+			</div>
 		</>
 	);
 }

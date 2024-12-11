@@ -64,20 +64,19 @@
 	display: flex;
 	gap: 10px; /* Adds space between the dropdown and button */
 	align-items: center;
-  }
-  
-  .dropdown {
+}
+
+.dropdown {
 	padding: 0.4rem;
 	font-size: 1rem;
 	border-radius: 5px;
 	border: 1px solid #ccc;
-  }
-  
-  .buttonContainer {
+}
+
+.buttonContainer {
 	position: absolute;
 	top: 20px;
 	right: 20px;
 	display: flex;
 	gap: 10px;
-  }
-  
+}
