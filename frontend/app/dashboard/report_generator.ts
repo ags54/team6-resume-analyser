@@ -5,7 +5,10 @@ import { saveAs } from "file-saver";
 export function generatePDF(
 	fitScore: number,
 	matchedKeywords: string[],
-	feedback: string[],
+	feedback: {
+		category: string;
+		text: string;
+	}[],
 ) {
 	const doc = new jsPDF();
 	const pageWidth = doc.internal.pageSize.width;
@@ -46,7 +49,11 @@ export function generatePDF(
 
 	doc.setFont("helvetica", "normal");
 	feedback.forEach((item, index) => {
-		doc.text(`- ${item}`, 10, currentY + index * 10);
+		doc.text(
+			`- ${item.category} - ${item.text}`,
+			10,
+			currentY + index * 10,
+		);
 	});
 
 	doc.save("Resume_Analysis_Report.pdf");
@@ -55,7 +62,10 @@ export function generatePDF(
 export function generateWord(
 	fitScore: number,
 	matchedKeywords: string[],
-	feedback: string[],
+	feedback: {
+		category: string;
+		text: string;
+	}[],
 ) {
 	const doc = new Document({
 		sections: [
@@ -120,7 +130,7 @@ export function generateWord(
 							new Paragraph({
 								children: [
 									new TextRun({
-										text: `- ${item}`,
+										text: `- ${item.category} - ${item.text}`,
 										size: 24,
 									}),
 								],

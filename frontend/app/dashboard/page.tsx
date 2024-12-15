@@ -4,9 +4,7 @@ import FitScoreChart from "./fit_score_chart";
 import SkillsMatched from "./skills_matched";
 import ImprovementSuggestions from "./improvement_suggestions";
 import styles from "./dashboard.module.css";
-import { useRouter } from "next/navigation";
-import { isLoggedIn } from "util/fetching";
-import { useEffect, useState } from "react"; // as from here to line 16
+import { useState } from "react";
 import React from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
@@ -14,10 +12,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { generatePDF, generateWord } from "./report_generator";
+import { useProtectRoute } from "util/fetching";
 export interface MockData {
 	fitScore: number;
 	matchedSkills: string[];
-	improvementSuggestions: string[];
+	improvementSuggestions: {
+		category: string;
+		text: string;
+	}[];
 }
 
 const mockData: MockData = {
@@ -32,19 +34,14 @@ const mockData: MockData = {
 		"C#",
 	],
 	improvementSuggestions: [
-		"Add personal characteristics.",
-		"Include measurable achievements.",
-		"Add personal project(s)",
+		{ category: "skills", text: "Add personal characteristics." },
+		{ category: "experience", text: "Include measurable achievements." },
+		{ category: "skills", text: "Add personal project(s)." },
 	],
 };
 
 export default function Dashboard() {
-	const router = useRouter();
-	useEffect(() => {
-		if (!isLoggedIn()) {
-			router.push("/");
-		}
-	});
+	useProtectRoute();
 
 	const [fileFormat, setFileFormat] = useState("PDF"); // Default format is PDF
 
