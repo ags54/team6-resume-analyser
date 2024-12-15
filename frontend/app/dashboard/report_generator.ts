@@ -1,5 +1,5 @@
 import jsPDF from "jspdf";
-import { Document, Packer, Paragraph, TextRun, AlignmentType } from "docx";
+import { AlignmentType, Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
 
 export function generatePDF(

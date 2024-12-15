@@ -13,7 +13,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { generatePDF, generateWord } from "./reportGenerator";
+import { generatePDF, generateWord } from "./report_generator";
 export interface MockData {
 	fitScore: number;
 	matchedSkills: string[];
@@ -78,31 +78,24 @@ export default function Dashboard() {
 				/>
 			</div>
 
-			{/* as */}
 			{/* Button Container for Download Report */}
 			<div className={styles.buttonContainer}>
+				{/* Select Button for File Format */}
 				<Button
 					variant="contained"
 					color="primary"
 					onClick={handleDownload}
-					sx={{
-						height: 65, // Adjust the height
-						fontSize: "1.3rem", // Adjust the font size
-					}}
 				>
 					Download Report
 				</Button>
-
-				{/* Select Button for File Format */}
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
+				<FormControl>
 					<InputLabel id="file-format-select-label">
-						File Format
+						Format
 					</InputLabel>
 					<Select
 						labelId="file-format-select-label"
-						id="file-format-select"
 						value={fileFormat}
-						label="File Format"
+						label="Format"
 						onChange={(event) => setFileFormat(event.target.value)}
 					>
 						<MenuItem value="PDF">PDF</MenuItem>
