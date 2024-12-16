@@ -11,6 +11,10 @@ The frontend is in `/frontend`. It is a [next.js](https://nextjs.org/) project t
 3. ```sh
    npm install
    ```
+4. to setup end to end testing, run
+   ```sh
+   npx playwright install --with-deps
+   ```
 
 ### Formatting
 
@@ -55,6 +59,13 @@ To run the same checks that run in ci on your local, you can run
 npm run check
 ```
 
+### Run end to end tests
+
+(in `frontend`)
+```sh
+npm run test:e2e
+```
+
 ## Backend
 
 The backend is in `/backend`. It is an [oak server](https://oakserver.org/) that uses [deno](https://deno.com/).
@@ -68,6 +79,40 @@ The backend is in `/backend`. It is an [oak server](https://oakserver.org/) that
 3. ```sh
    deno install
    ```
+4. Set up the environment variables:
+
+   **Step 4.1:** Create a file named `local.env` inside the `backend` directory. The directory structure should look similar to this:
+   ```bash
+   .
+   ├── api
+   ├── in_memory
+   ├── local.env
+   ├── middleware
+   └── util
+   ```
+
+   **Step 4.2:** Create an account on [Platform OpenAI](https://platform.openai.com).
+
+   **Step 4.3:** Generate an API token:
+   - Go to your Platform OpenAI account settings.
+   - Navigate to **Usage**.
+   - Confirm under **Credit Grants** an inital free $5.00.
+   - Navigate to **API keys**.
+   - Select **+ Create new secret key**.
+   - Choose **You** as the key owner.
+   - Assign a name to your key.
+   - Assign a project for your key. **Default project** is fine.
+   - Under **Permissions**, select **All**.
+   - Click **Create secret key**.
+
+   **Step 4.4:** Copy the generated secret key.
+
+   **Step 4.5:** Add the secret key to your `backend/local.env` file as an environment variable. Use the following format:
+   ```env
+   OPENAI_API_KEY=your-token-key
+   ```
+   - Replace `your-token-key` with the actual token key.
+   - Do **not** enclose the token key in any kind of quotes.
 
 ### Formatting
 
