@@ -7,16 +7,18 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 
 ## Table of Contents
 
-1. [Authentication](#authentication)
-   - [User Registration](#user-registration)
-   - [User Login](#user-login)
-2. [Resume and Job Description Input Handling](#resume-and-job-description-input-handling)
-   - [Resume Upload](#resume-upload)
-   - [Job Description Submission](#job-description-submission)
-3. [AI Integration and Analysis](#ai-integration-and-analysis)
-   - [Analyze Resume and Job Description](#analyze-resume-and-job-description)
-4. [Feedback and Reporting](#feedback-and-reporting)
-   - [Fit Score and Feedback Retrieval](#fit-score-and-feedback-retrieval)
+- [API Documentation](#api-documentation)
+	- [Introduction](#introduction)
+	- [Table of Contents](#table-of-contents)
+	- [Authentication](#authentication)
+		- [User Registration (Task 4)](#user-registration-task-4)
+		- [User Login (Task 5)](#user-login-task-5)
+	- [Resume and Job Description Input Handling](#resume-and-job-description-input-handling)
+		- [Resume Upload (Task 8)](#resume-upload-task-8)
+		- [Job Description Submission (Task 8)](#job-description-submission-task-8)
+	- [AI Integration and Analysis](#ai-integration-and-analysis)
+		- [Analyze Resume and Job Description (Task 18)](#analyze-resume-and-job-description-task-18)
+		- [Fit Score and Feedback Retrieval (Task 24)](#fit-score-and-feedback-retrieval-task-24)
 
 ---
 
@@ -30,21 +32,27 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 **Request:**
 ```json
 {
-  "email": "user@example.com",
-  "username": "user123",
-  "password": "securePassword"
+	"email": "user@example.com",
+	"username": "user123",
+	"password": "securePassword"
 }
 ```
 
 **Response:**
 - **Success (`201 Created`):**
-  ```json
-  { "message": "User registered successfully." }
-  ```
+```json
+{
+	"isError": false,
+	"message": "User registered successfully."
+}
+```
 - **Error (`400 Bad Request`):**
-  ```json
-  { "error": "Invalid input or email already exists." }
-  ```
+```json
+{
+	"isError": true,
+	"message": "Email already registered"
+}
+```
 
 ---
 
@@ -56,20 +64,29 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 **Request:**
 ```json
 {
-  "email": "user@example.com",
-  "password": "securePassword"
+	"email": "user@example.com",
+	"password": "securePassword"
 }
 ```
 
 **Response:**
 - **Success (`200 OK`):**
-  ```json
-  { "token": "jwt-token" }
-  ```
+```json
+{
+	"isError": false,
+	"message": "Logged in",
+	"token": "jwt-token"
+}
+```
 - **Error (`401 Unauthorized`):**
-  ```json
-  { "error": "Invalid email or password." }
-  ```
+```json
+{
+	"isError": true,
+	"message": "Invalid email or password."
+}
+```
+
+The returned jwt should be included in the "token" header for authenticated requests.
 
 ---
 
@@ -92,19 +109,19 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 
 **Response:**
 - **Success (`200 OK`):**
-  ```json
-  {
-    "message": "Resume uploaded successfully.",
-    "status": "success"
-  }
-  ```
+```json
+{
+	"isError": false,
+	"message": "Resume uploaded successfully."
+}
+```
 - **Error (`400 Bad Request`):**
-  ```json
-  {
-    "error": "Invalid file type. Only PDF files are allowed.",
-    "status": "error"
-  }
-  ```
+```json
+{
+	"isError": true,
+	"message": "Invalid file type. Only PDF files are allowed."
+}
+```
 
 ---
 
@@ -113,27 +130,33 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 
 **Description:** Accepts a job description in text format.
 
+Must be logged in.
+
 **Request:**
-- **Content-Type:** `application/json`
+```json
+{
+	"jobDescription": "We are looking for a 1000000x engineer. minimum wage."
+}
+```
 - **Backend Logic**
   - Ensure the text input does not exceed 5,000 characters.
   - Clean the text by removing extraneous whitespace.
 
 **Response:**
 - **Success (`200 OK`):**
-  ```json
-  {
-    "message": "Job description submitted successfully.",
-    "status": "success"
-  }
-  ```
+```json
+{
+	"isError": false,
+	"message": "Job description submitted successfully."
+}
+```
 - **Error (`400 Bad Request`):**
-  ```json
-  {
-    "error": "Job description exceeds character limit.",
-    "status": "error"
-  }
-  ```
+```json
+{
+	"isError": true,
+	"error": "Job description exceeds character limit."
+}
+```
 
 ---
 
@@ -141,6 +164,8 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 
 ### Analyze Resume and Job Description (Task 18)
 **Endpoint:** `POST /api/analyze`
+
+Must be logged in. Uses job description and resume from previous upload.
 
 **Description:** Connect with the NLP API and facilitate communication between the frontend and AI service.
 
@@ -150,61 +175,79 @@ This document outlines the API endpoints for the Resume and Job Description Anal
 
 **Request:**
 ```json
-{
-  "resume_text": "Resume content...",
-  "job_description": "Job description..."
-}
+{}
 ```
 
 **Response:**
 - **Success (`200 OK`):**
-  ```json
-  {
-    "fit_score": 85,
-    "feedback": [
-      "Add experience with AWS services.",
-      "Improve the summary section."
-    ]
-  }
-  ```
+```json
+{
+	"isError": false,
+	"message": "Analysis successful.",
+	"data": {
+		resumeAnalysis: ["list", "of", "keywords", "in", "resume"];
+		jobDescriptionAnalysis: {
+			mustHave: ["must-have", "keywords", "in", "job description"];
+			niceToHave: ["nice to have", "keywords"];
+		};
+		feedback: [
+			{
+				feedback: "add 12 new programming languages.",
+				category: "skills"
+			},
+			{
+				feedback: "invent 12 new programming languages.",
+				category: "experience"
+			}
+		]
+	}
+}
+```
 - **Error (`400 Bad Request or 500 Internal Server Error`):**
-  ```json
-  {
-    "error": "Unable to process the request. Please try again later"
-  }
-  ```
+```json
+{
+	"isError": true,
+	"message": "You must upload a resume and job description."
+}
+```
 
 ---
 
 ### Fit Score and Feedback Retrieval (Task 24)
 **Endpoint:** `POST /api/fit-score`
 
+Must be logged in.
+
 **Description:** Retrieves the fit score and feedback for the authenticated user.
 
 **Request:**
 ```json
 {
-  "resume_text": "Resume content...",
-  "job_description": "Job description..."
+	"resumeKeywords": ["list", "of", "keywords", "from", "/api/analyze"],
+	"jobDescriptionKeywords": {
+		"niceToHave": ["copied", "data", "from", "previous api call"],
+		"mustHave": ["steve", "jobs"]
+	}
 }
 ```
 
 **Response:**
 - **Success (`200 OK`):**
-  ```json
-  {
-    "fit_score": 85,
-    "feedback": [
-      "Add experience with project management.",
-      "Highlight achievements in team leadership."
-    ]
-  }
-  ```
+```json
+{
+	"isError": false,
+	"message": "success",
+	"fitScore": 0.5,
+	"matchedSkills": ["skills", "that", "were", "found", "in", "resume and job description"],
+	"feedback": ["include experience with apple computer", "do a project with steve jobs"],
+}
+```
 - **Error (`400 Bad Request`):**
-  ```json
-  {
-    "error": "Invalid input data. Both resume_text and job_description are required."
-  }
-  ```
+```json
+{
+	"isError": true,
+	"message": "malformed request",
+}
+```
 
 ---
