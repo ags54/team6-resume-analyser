@@ -50,11 +50,7 @@ export default function JobDescriptionForm(props: { onSubmit?: () => void }) {
 		<Card>
 			<CardHeader title="Job Description" />
 			<CardContent>
-				<form
-					onSubmit={(event) => {
-						void handleSubmit(event);
-					}}
-				>
+				<form onSubmit={handleSubmit}>
 					{isLoading ? <CircularProgress /> : undefined}
 					<TextField
 						label="Job Description"
@@ -68,7 +64,13 @@ export default function JobDescriptionForm(props: { onSubmit?: () => void }) {
 						margin="normal"
 					/>
 					Character count: {description.length}/5000
-					<Button type="submit" variant="contained" fullWidth>
+					<Button
+						type="submit"
+						variant="contained"
+						fullWidth
+						disabled={isLoading}
+						data-testid="submit-button"
+					>
 						Submit Job Description
 					</Button>
 					{message ?? ""}
