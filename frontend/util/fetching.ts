@@ -35,6 +35,18 @@ export type getRequests = {
 			message: string;
 		};
 	};
+	"api/fit-score": {
+		response: {
+			isError: boolean;
+			message: string;
+			fitScore: number;
+			matchedSkills: string[];
+			improvementSuggestions: {
+				category: string;
+				text: string;
+			}[];
+		};
+	};
 };
 
 export function useBackendGet<T extends keyof getRequests>(
@@ -93,6 +105,43 @@ export type postRequests = {
 			token?: string;
 		};
 	};
+	"api/analyze": {
+		request: {};
+		response: {
+			isError: false;
+			message: "Analysis successful.";
+			data: {
+				resumeAnalysis: string[];
+				jobDescriptionAnalysis: {
+					mustHave: string[];
+					niceToHave: string[];
+				};
+				feedback: {
+					feedback: string;
+					category: string;
+				}[];
+			};
+		};
+	};
+	"api/fit-score": {
+		request: {
+			resumeKeywords: string[];
+			jobDescriptionKeywords: {
+				niceToHave: string[];
+				mustHave: string[];
+			};
+		};
+		response: {
+			isError: boolean;
+			message: string;
+			fitScore: number;
+			feedback: {
+				feedback: string;
+				category: string;
+			}[];
+			matchedSkills: string[];
+		};
+	};
 };
 
 type formPostRequests = {
@@ -118,6 +167,13 @@ export async function backendPost<T extends jsonPostRequests>(
 		},
 		body: JSON.stringify(data),
 	})
+		.then((response) => {
+			if (response.status == 401) {
+				setToken(undefined);
+				return Promise.reject("not authenticated");
+			}
+			return response;
+		})
 		.then((response) => response.json())
 		.then((response) => {
 			if (endpoint == "api/login") {
@@ -142,17 +198,20 @@ export async function backendFormPost<T extends formPostRequests>(
 	>;
 }
 
-function getToken(): string {
+export function getToken(): string {
+	if (!Object.hasOwn(globalThis, "localStorage")) return "";
 	return JSON.parse(localStorage?.getItem("token") ?? '""');
 }
 
 function setToken(token: string | undefined) {
-	localStorage?.setItem("token", JSON.stringify(token ?? '""'));
+	if (!Object.hasOwn(globalThis, "localStorage")) return;
+	localStorage?.setItem("token", JSON.stringify(token ?? ""));
 }
 
 export function useProtectRoute() {
 	const router = useRouter();
-	const [token] = useLocalStorageState<string>("token");
+	const [t] = useLocalStorageState<string>('"token"');
+	const token = t ?? getToken();
 
 	useEffect(() => {
 		if (!token) {
